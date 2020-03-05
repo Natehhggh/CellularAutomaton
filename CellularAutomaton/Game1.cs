@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+using CellularAutomaton.src.Worlds;
+
 namespace CellularAutomaton
 {
 	/// <summary>
@@ -11,6 +13,8 @@ namespace CellularAutomaton
 	{
 		GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
+
+		World World;
 
 		public Game1()
 		{
@@ -29,6 +33,9 @@ namespace CellularAutomaton
 			// TODO: Add your initialization logic here
 
 			base.Initialize();
+			World = new WolframWorld(100,40,90);
+			World.Update();
+			World.PrintCellStates();
 		}
 
 		/// <summary>
