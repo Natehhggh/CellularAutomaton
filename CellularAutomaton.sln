@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2042
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CellularAutomaton", "CellularAutomaton\CellularAutomaton.csproj", "{36B9A7D2-C811-41B7-9124-949BB1F3A9A3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{36B9A7D2-C811-41B7-9124-949BB1F3A9A3}.Debug|x86.ActiveCfg = Debug|x86
+		{36B9A7D2-C811-41B7-9124-949BB1F3A9A3}.Debug|x86.Build.0 = Debug|x86
+		{36B9A7D2-C811-41B7-9124-949BB1F3A9A3}.Release|x86.ActiveCfg = Release|x86
+		{36B9A7D2-C811-41B7-9124-949BB1F3A9A3}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {475A2E77-2597-4FE8-9CC1-6308514C26C6}
+	EndGlobalSection
+EndGlobal
