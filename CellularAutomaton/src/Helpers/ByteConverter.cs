@@ -25,6 +25,7 @@ namespace CellularAutomaton.src.Helpers
 		{
 			int val = 0;
 
+
 			char[] bits = bitString.ToCharArray();
 
 			bits = bits.Reverse().ToArray();

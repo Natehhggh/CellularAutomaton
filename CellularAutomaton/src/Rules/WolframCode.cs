@@ -14,35 +14,29 @@ namespace CellularAutomaton.src.Rules
 
 		public WolframCode(byte RuleNumber, byte InitialState = 0)
 		{
+
 			RuleString = ByteConverter.ConvertByteToString(RuleNumber);
-			State = InitialState;
-			PrevState = State;
+			NextState = InitialState;
+			SetCurrentState();
 		}
 
 		public WolframCode(string RuleString, byte InitialState = 0)
 		{
 			this.RuleString = RuleString;
-			PrevState = State;
+			NextState = InitialState;
+			SetCurrentState();
 		}
 
 		public override void Update(string neighbors)
-		{
-			if (State == 0 )
+		{ 
+			if (State != 1)
 			{
+				SetCurrentState();
 				int RuleIndex = ByteConverter.ConvertBitString(neighbors);
-				
 				int index = RuleString.Length - (RuleIndex + 1);
-				State = Convert.ToByte(RuleString[index] - 48);
-			}
-			else
-			{
+				NextState = Convert.ToByte(RuleString[index] - 48);
 
-			}
-
-			if (State != 0)
-			{
-
-			}
+			}	
 		}
 
 		public override byte GetState() 
@@ -51,6 +45,10 @@ namespace CellularAutomaton.src.Rules
 		}
 
 
+		protected override void SetCurrentState()
+		{
+			State = NextState;
+		}
 
 		
 	}
