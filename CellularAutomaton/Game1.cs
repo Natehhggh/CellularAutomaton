@@ -3,6 +3,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 using CellularAutomaton.src.Worlds;
+using CellularAutomaton.src.Worlds.common;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace CellularAutomaton
 {
@@ -30,12 +33,23 @@ namespace CellularAutomaton
 		/// </summary>
 		protected override void Initialize()
 		{
+			base.Initialize();
 			// TODO: Add your initialization logic here
 
-			base.Initialize();
-			World = new WolframWorld(100,40,90);
-			World.Update();
-			World.PrintCellStates();
+
+
+			int Width = 100;
+			int Height = 40;
+			byte Rule = 90;
+			int NumSeeds = 10;
+
+			List<Coords> seeds = RandomCoordGenerator.GetCoords(Width, 0, NumSeeds);
+			
+			World = new WolframWorld(Width,Height,Rule, seeds);
+
+
+			
+			
 		}
 
 		/// <summary>
@@ -71,6 +85,10 @@ namespace CellularAutomaton
 
 			// TODO: Add your update logic here
 
+
+			World.Update();
+			World.PrintCellStates();
+
 			base.Update(gameTime);
 		}
 
@@ -81,7 +99,7 @@ namespace CellularAutomaton
 		protected override void Draw(GameTime gameTime)
 		{
 			GraphicsDevice.Clear(Color.CornflowerBlue);
-
+			
 			// TODO: Add your drawing code here
 
 			base.Draw(gameTime);

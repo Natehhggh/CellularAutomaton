@@ -50,6 +50,8 @@
     <Compile Include="src\Helpers\MathHelper.cs" />
     <Compile Include="src\Rules\RuleStates.cs" />
     <Compile Include="src\Rules\WolframCode.cs" />
+    <Compile Include="src\Worlds\common\Coords.cs" />
+    <Compile Include="src\Worlds\common\RandomCoordGenerator.cs" />
     <Compile Include="src\Worlds\WolframWorld.cs" />
     <Compile Include="src\Worlds\World.cs" />
   </ItemGroup>
