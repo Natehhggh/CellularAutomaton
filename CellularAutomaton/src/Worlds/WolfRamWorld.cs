@@ -15,9 +15,12 @@ namespace CellularAutomaton.src.Worlds
 	class WolframWorld : World
 	{
 
-		public WolframWorld(int Width, int Height,Byte Rule , int SeedPosition = -1 )
+		private Byte Rule;
+
+		public WolframWorld(int Width, int Height,Byte Rule , int SeedPosition = -1 ) : base(Width,Height)
 		{
-			CellGrid = CreateCellGrid(Width, Height);
+			this.Rule = Rule;
+			CellGrid = CreateCellGrid();
 
 			if (SeedPosition == -1)
 			{
@@ -25,14 +28,16 @@ namespace CellularAutomaton.src.Worlds
 			}
 
 			InitializeGrid(Rule, SeedPosition);
-
+			InitialUpdate();
 		}
 
-		public WolframWorld(int Width, int Height, Byte Rule, IList<Coords> InitialSeeds)
+		public WolframWorld(int Width, int Height, Byte Rule, IList<Coords> InitialSeeds) : base(Width, Height)
 		{
-			CellGrid = CreateCellGrid(Width, Height);
+			this.Rule = Rule;
+			CellGrid = CreateCellGrid();
 
 			InitializeGrid(Rule, InitialSeeds);
+			InitialUpdate();
 
 		}
 
@@ -44,11 +49,10 @@ namespace CellularAutomaton.src.Worlds
 
 		protected override void InitializeGrid(byte Rule, int seedPos)
 		{
-			for (YUpdatePos = 0; YUpdatePos < CellGrid[XUpdatePos].Length; YUpdatePos++)
+			for (YUpdatePos = 0; YUpdatePos < Height; YUpdatePos++)
 			{
-				for (XUpdatePos = 0; XUpdatePos < CellGrid.Length; XUpdatePos++)
+				for (XUpdatePos = 0; XUpdatePos < Width; XUpdatePos++)
 				{
-					
 					CellGrid[XUpdatePos][YUpdatePos] = new WolframCell(GetNeighborStates,Rule, GetCellStartingState(seedPos));
 				}
 				XUpdatePos = 0;
@@ -58,9 +62,9 @@ namespace CellularAutomaton.src.Worlds
 
 		protected override void InitializeGrid(byte Rule, IList<Coords> InitialSeeds)
 		{
-			for (YUpdatePos = 0; YUpdatePos < CellGrid[XUpdatePos].Length; YUpdatePos++)
+			for (YUpdatePos = 0; YUpdatePos < Height; YUpdatePos++)
 			{
-				for (XUpdatePos = 0; XUpdatePos < CellGrid.Length; XUpdatePos++)
+				for (XUpdatePos = 0; XUpdatePos < Width; XUpdatePos++)
 				{
 					CellGrid[XUpdatePos][YUpdatePos] = new WolframCell(GetNeighborStates, Rule, GetCellStartingState(InitialSeeds));
 				}
@@ -71,12 +75,12 @@ namespace CellularAutomaton.src.Worlds
 		}
 
 
-		protected override Cell[][] CreateCellGrid(int width, int height)
+		protected override Cell[][] CreateCellGrid()
 		{
-			Cell[][] grid = new Cell[width][];
-			for (int i = 0; i < width; i++)
+			Cell[][] grid = new Cell[Width][];
+			for (int i = 0; i < Width; i++)
 			{
-				grid[i] = new Cell[height];
+				grid[i] = new Cell[Height];
 			}
 			return grid;
 		}
@@ -99,12 +103,12 @@ namespace CellularAutomaton.src.Worlds
 
 		int ModWorldWidth(int x)
 		{
-			return MathHelper.mod(x, CellGrid.Length);
+			return MathHelper.mod(x, Width);
 		}
 
 		int ModWorldWHeight(int y)
 		{
-			return MathHelper.mod(y, CellGrid[0].Length);
+			return MathHelper.mod(y, Height);
 		}
 
 		byte GetCellStartingState(int seedPos)
@@ -137,31 +141,49 @@ namespace CellularAutomaton.src.Worlds
 
 		public override void Update()
 		{
-#if UpdateOneRow
-			for (XUpdatePos = 0; XUpdatePos < CellGrid.Length; XUpdatePos++)
-			{ 
+
+			for (int x = 0; x < Width; x++)
+			{
+				Cell newCell = CellGrid[x][0];
+				for (int y = 0; y < Height - 1; y++)
+				{
+					CellGrid[x][y] = CellGrid[x][y + 1];
+				}
+				CellGrid[x][Height - 1] = newCell;
+			}
+			UpdateRow(Height- 1);
+
+		}
+
+		private void UpdateRow(int y)
+		{
+			YUpdatePos = y;
+			for (XUpdatePos = 0; XUpdatePos < Width; XUpdatePos++)
+			{
 				CellGrid[XUpdatePos][YUpdatePos].Update();
 			}
 			XUpdatePos = 0;
-			YUpdatePos = ModWorldWHeight(YUpdatePos + 1);
-#else
-			for (YUpdatePos = 0; YUpdatePos < CellGrid[XUpdatePos].Length; YUpdatePos++)
+		}
+
+		protected void InitialUpdate()
+		{
+			for (YUpdatePos = 1; YUpdatePos < Height; YUpdatePos++)
 			{
-				for (XUpdatePos = 0; XUpdatePos < CellGrid.Length; XUpdatePos++)
-				{ 
+				for (XUpdatePos = 0; XUpdatePos < Width; XUpdatePos++)
+				{
 					CellGrid[XUpdatePos][YUpdatePos].Update();
 				}
 				XUpdatePos = 0;
 			}
-#endif
 		}
+
 
 		public override void PrintCellStates()
 		{
 			int x = 0;
-			for (int y = 0; y < CellGrid[x].Length; y++)
+			for (int y = 0; y < Height; y++)
 			{
-				for (x = 0; x < CellGrid.Length; x++)
+				for (x = 0; x < Width; x++)
 				{
 					byte state = CellGrid[x][y].GetState();
 

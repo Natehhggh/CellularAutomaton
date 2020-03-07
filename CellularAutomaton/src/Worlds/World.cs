@@ -13,13 +13,21 @@ namespace CellularAutomaton.src.Worlds
 		protected int XUpdatePos;
 		protected int YUpdatePos;
 
+		protected int Height;
+		protected int Width;
+
 		protected Cell[][] CellGrid;
 
+		public World(int Width, int Height)
+		{
+			this.Width = Width;
+			this.Height = Height;
+		}
 
 		public abstract string GetNeighborStates();
 		protected abstract void InitializeGrid(byte Rule, int seedPos);
 		protected abstract void InitializeGrid(byte Rule, IList<Coords> InitialSeeds);
-		protected abstract Cell[][] CreateCellGrid(int width, int height);
+		protected abstract Cell[][] CreateCellGrid();
 		public abstract void Update();
 		public abstract void PrintCellStates();
 

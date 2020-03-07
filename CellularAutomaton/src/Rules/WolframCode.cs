@@ -29,14 +29,11 @@ namespace CellularAutomaton.src.Rules
 
 		public override void Update(string neighbors)
 		{ 
-			if (State != 1)
-			{
-				SetCurrentState();
-				int RuleIndex = ByteConverter.ConvertBitString(neighbors);
-				int index = RuleString.Length - (RuleIndex + 1);
-				NextState = Convert.ToByte(RuleString[index] - 48);
-
-			}	
+			SetCurrentState();
+			int RuleIndex = ByteConverter.ConvertBitString(neighbors);
+			int index = RuleString.Length - (RuleIndex + 1);
+			NextState = Convert.ToByte(RuleString[index] - 48);
+			SetCurrentState();
 		}
 
 		public override byte GetState() 

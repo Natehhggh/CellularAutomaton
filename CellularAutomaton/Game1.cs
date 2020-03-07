@@ -6,6 +6,7 @@ using CellularAutomaton.src.Worlds;
 using CellularAutomaton.src.Worlds.common;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System;
 
 namespace CellularAutomaton
 {
@@ -41,10 +42,13 @@ namespace CellularAutomaton
 			int Width = 100;
 			int Height = 40;
 			byte Rule = 90;
-			int NumSeeds = 10;
+			double percentInitiallyActive = 0.5;
 
-			List<Coords> seeds = RandomCoordGenerator.GetCoords(Width, 0, NumSeeds);
-			
+			//int NumSeeds = Convert.ToInt32(Width * Height * percentInitiallyActive);
+
+			List<Coords> seeds = RandomCoordGenerator.GetCoords(Width, Height, percentInitiallyActive);
+			//List<Coords> seeds = new List<Coords>{ new Coords(Width / 2, 0) };
+
 			World = new WolframWorld(Width,Height,Rule, seeds);
 
 
@@ -80,9 +84,11 @@ namespace CellularAutomaton
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Update(GameTime gameTime)
 		{
+			
 			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
 				Exit();
 
+			
 			// TODO: Add your update logic here
 
 
@@ -99,8 +105,10 @@ namespace CellularAutomaton
 		protected override void Draw(GameTime gameTime)
 		{
 			GraphicsDevice.Clear(Color.CornflowerBlue);
-			
+
 			// TODO: Add your drawing code here
+
+
 
 			base.Draw(gameTime);
 		}
