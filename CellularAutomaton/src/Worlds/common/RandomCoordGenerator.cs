@@ -35,5 +35,25 @@ namespace CellularAutomaton.src.Worlds.common
 			return coords;
 		}
 
+		static public List<Coords> GetCoords(int Width, int Height, double PercentAlive)
+		{
+			List<Coords> coords = new List<Coords>();
+			Random random = new Random();
+
+			for (int x = 0; x < Width; x++)
+			{
+				for (int y = 0; y < Height; y++)
+				{
+					double roll = random.NextDouble();
+					if (roll < PercentAlive)
+					{
+						coords.Add(new Coords(x, y));
+					}
+				}
+			}
+
+			return coords;
+		}
+
 	}
 }
