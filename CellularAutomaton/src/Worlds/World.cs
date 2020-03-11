@@ -24,12 +24,19 @@ namespace CellularAutomaton.src.Worlds
 			this.Height = Height;
 		}
 
-		public abstract string GetNeighborStates();
+		
 		protected abstract void InitializeGrid(byte Rule, int seedPos);
 		protected abstract void InitializeGrid(byte Rule, IList<Coords> InitialSeeds);
 		protected abstract Cell[][] CreateCellGrid();
+
+		//TODO: test if this can be private or protected
+		public abstract string GetNeighborStates();
+
 		public abstract void Update();
 		public abstract void PrintCellStates();
+		public byte GetState(int x, int y) { return this.CellGrid[x][y].GetState(); }
+		public int GetHeight() { return this.Height; }
+		public int GetWidth() { return this.Width; }
 
 	}
 }

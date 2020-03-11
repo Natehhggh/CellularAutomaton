@@ -15,8 +15,15 @@ namespace CellularAutomaton
 	/// </summary>
 	public class Game1 : Game
 	{
+		Dictionary<byte, Texture2D> GraphicsDict;
+
 		GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
+		private Vector2 position;
+
+		private int tileHeight;
+		private int tileWidth;
+
 
 		World World;
 
@@ -24,6 +31,17 @@ namespace CellularAutomaton
 		{
 			graphics = new GraphicsDeviceManager(this);
 			Content.RootDirectory = "Content";
+
+			this.IsFixedTimeStep = true;//false;
+
+			double targetFPS = 30;
+
+			this.TargetElapsedTime = TimeSpan.FromSeconds(1d / targetFPS);
+
+			this.IsMouseVisible = true;
+			//this.Window.AllowUserResizing = true;
+
+
 		}
 
 		/// <summary>
@@ -36,8 +54,9 @@ namespace CellularAutomaton
 		{
 			base.Initialize();
 			// TODO: Add your initialization logic here
+			
 
-
+			position = new Vector2(0, 0);
 
 			int Width = 100;
 			int Height = 40;
@@ -52,8 +71,16 @@ namespace CellularAutomaton
 			World = new WolframWorld(Width,Height,Rule, seeds);
 
 
-			
-			
+
+			//graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width;
+			//graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
+			//graphics.IsFullScreen = true;
+
+			graphics.PreferredBackBufferWidth = 1600;
+			graphics.PreferredBackBufferHeight = 800;
+			graphics.ApplyChanges();
+
+
 		}
 
 		/// <summary>
@@ -65,7 +92,12 @@ namespace CellularAutomaton
 			// Create a new SpriteBatch, which can be used to draw textures.
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 
-			// TODO: use this.Content to load your game content here
+			GraphicsDict = new Dictionary<byte, Texture2D>
+			{
+				[1] = Content.Load<Texture2D>(@"Cells\LivingSprite-0001"),
+				[0] = Content.Load<Texture2D>(@"Cells\deadSprite-0001")
+			};
+
 		}
 
 		/// <summary>
@@ -93,7 +125,7 @@ namespace CellularAutomaton
 
 
 			World.Update();
-			World.PrintCellStates();
+			//World.PrintCellStates();
 
 			base.Update(gameTime);
 		}
@@ -105,12 +137,33 @@ namespace CellularAutomaton
 		protected override void Draw(GameTime gameTime)
 		{
 			GraphicsDevice.Clear(Color.CornflowerBlue);
+			tileHeight = GraphicsDict[0].Height;
+			tileWidth = GraphicsDict[0].Width;
+			Rectangle sourceRectangle = new Rectangle(0, 0, tileHeight, tileWidth);
+			Vector2 origin = new Vector2(0, 0);
+			float rotation = 0;
+			float scale = 0.5f;
+			spriteBatch.Begin();
 
-			// TODO: Add your drawing code here
+			
+
+			for (int j = 0; j < World.GetHeight(); j++)
+			{
+				for (int i = 0; i < World.GetWidth(); i++)
+				{
+					position.X = i * tileWidth * scale;
+					position.Y = j * tileHeight * scale;
+					spriteBatch.Draw(GraphicsDict[World.GetState(i, j)], position, sourceRectangle, Color.White, rotation, origin, scale, SpriteEffects.None, 1);
+					
+				}
+			}
 
 
 
+
+			spriteBatch.End();
 			base.Draw(gameTime);
 		}
+
 	}
 }
