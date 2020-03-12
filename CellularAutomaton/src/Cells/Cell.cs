@@ -7,7 +7,7 @@ using CellularAutomaton.src.Rules;
 
 namespace CellularAutomaton.src.Cells
 {
-	abstract class Cell
+	public abstract class Cell
 	{
 		protected RuleStates state;
 		protected Func<string> GetNeighbors;

@@ -8,14 +8,18 @@ using CellularAutomaton.src.Rules;
 
 namespace CellularAutomaton.src.Cells
 {
-	class WolframCell : Cell
+	public class WolframCell : Cell
 	{
-		
-
 		public WolframCell(Func<string> GetNeighbors, byte RuleNumber, byte InitialState = 0)
 		{
 			this.GetNeighbors = GetNeighbors;
 			this.state = new WolframCode(RuleNumber, InitialState);
+		}
+
+		public WolframCell(Func<string> GetNeighbors, string RuleString, byte InitialState = 0)
+		{
+			this.GetNeighbors = GetNeighbors;
+			this.state = new WolframCode(RuleString, InitialState);
 		}
 
 		public override byte GetState()

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CellularAutomaton.src.Worlds.common
 {
-	struct Coords
+	public struct Coords
 	{
 		public Coords(int x, int y)
 		{

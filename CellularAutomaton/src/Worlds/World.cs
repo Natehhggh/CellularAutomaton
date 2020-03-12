@@ -8,7 +8,7 @@ using CellularAutomaton.src.Worlds.common;
 
 namespace CellularAutomaton.src.Worlds
 {
-	abstract class World
+	public abstract class World
 	{
 		protected int XUpdatePos;
 		protected int YUpdatePos;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CellularAutomaton.src.Rules
 {
-	abstract class RuleStates
+	public abstract class RuleStates
 	{
 		protected byte State;
 		protected byte NextState;
