@@ -12,7 +12,7 @@ using CellularAutomaton.src.Worlds.common;
 
 namespace CellularAutomaton.src.Worlds
 {
-	class WolframWorld : World
+	public class WolframWorld : World
 	{
 
 		private Byte Rule;
@@ -103,12 +103,12 @@ namespace CellularAutomaton.src.Worlds
 
 		int ModWorldWidth(int x)
 		{
-			return MathHelper.mod(x, Width);
+			return MathHelper.Mod(x, Width);
 		}
 
 		int ModWorldWHeight(int y)
 		{
-			return MathHelper.mod(y, Height);
+			return MathHelper.Mod(y, Height);
 		}
 
 		byte GetCellStartingState(int seedPos)

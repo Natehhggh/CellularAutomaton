@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CellularAutomaton.src.Helpers
 {
-	static class ByteConverter
+	public static class ByteConverter
 	{
 
 		public static string ConvertByteToString(byte value)

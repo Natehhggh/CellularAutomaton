@@ -8,7 +8,7 @@ using CellularAutomaton.src.Worlds;
 
 namespace CellularAutomaton.src.Rules
 {
-	class WolframCode : RuleStates
+	public class WolframCode : RuleStates
 	{
 		private readonly string RuleString;
 
