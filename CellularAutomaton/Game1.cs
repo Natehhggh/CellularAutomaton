@@ -65,8 +65,8 @@ namespace CellularAutomaton
 
 			//int NumSeeds = Convert.ToInt32(Width * Height * percentInitiallyActive);
 
-			List<Coords> seeds = RandomCoordGenerator.GetCoords(Width, Height, percentInitiallyActive);
-			//List<Coords> seeds = new List<Coords>{ new Coords(Width / 2, 0) };
+			//List<Coords> seeds = RandomCoordGenerator.GetCoords(Width, Height, percentInitiallyActive);
+			List<Coords> seeds = new List<Coords>{ new Coords(Width / 2, 0) };
 
 			World = new WolframWorld(Width,Height,Rule, seeds);
 

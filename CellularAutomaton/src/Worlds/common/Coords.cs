@@ -14,8 +14,17 @@ namespace CellularAutomaton.src.Worlds.common
 			Y = y;
 		}
 
-		public int X { get; }
-		public int Y { get; }
+		public int X { get; set; }
+		public int Y { get; set; }
 
+		public static bool operator == (Coords left, Coords right)
+		{
+			return left.X == right.X && left.Y == right.Y;
+		}
+
+		public static bool operator !=(Coords left, Coords right)
+		{
+			return left.X != right.X || left.Y != right.Y;
+		}
 	}
 }

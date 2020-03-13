@@ -44,6 +44,8 @@
     <Compile Include="Game1.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="src\CellGrids\CellGrid.cs" />
+    <Compile Include="src\CellGrids\WolframGrid.cs" />
     <Compile Include="src\Cells\Cell.cs" />
     <Compile Include="src\Cells\WolframCell.cs" />
     <Compile Include="src\Helpers\ByteConverter.cs" />
